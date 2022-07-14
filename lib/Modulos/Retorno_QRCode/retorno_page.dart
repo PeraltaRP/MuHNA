@@ -17,6 +17,8 @@ class _RetornoQrCodePageState extends State<RetornoQrCodePage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    String? url_visita;
+
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -40,6 +42,23 @@ class _RetornoQrCodePageState extends State<RetornoQrCodePage> {
           ],
         ),
       ),
+
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          // Text('Url'key: $url_visita),
+        ],
+      ),
     );
   }
+}
+
+
+class pega_url {
+
+  void onChange(String code) {
+    // TODO: implement onChange
+  }
+
 }

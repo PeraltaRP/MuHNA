@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:muhna/Modulos/Retorno_QRCode/retorno_page.dart';
 import 'package:muhna/Shared/Navigator/botaoContinuar.dart';
 import 'package:muhna/Shared/Themes/app_colors.dart';
 import 'package:muhna/Shared/Themes/app_images.dart';
@@ -16,6 +17,9 @@ class InforQrCodePage extends StatefulWidget {
 
 class _InforQrCodePageState extends State<InforQrCodePage> {
   String ticket = '';
+  final urlCode = pega_url();
+  
+
   // List<String> tickets = [];
 
   readQRCode() async {
@@ -26,6 +30,7 @@ class _InforQrCodePageState extends State<InforQrCodePage> {
       ScanMode.QR,
     );
     setState(() => ticket = code != '-1' ? code : 'Não validado');
+    
   }
 
   @override
