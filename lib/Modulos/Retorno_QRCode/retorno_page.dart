@@ -7,7 +7,8 @@ import '../../Shared/Themes/app_images.dart';
 import '../../Shared/Themes/app_text_styles.dart';
 
 class RetornoQrCodePage extends StatefulWidget {
-  const RetornoQrCodePage({Key? key}) : super(key: key);
+  late String url;
+  RetornoQrCodePage(this.url, {Key? key}) : super(key: key);
 
   @override
   State<RetornoQrCodePage> createState() => _RetornoQrCodePageState();
@@ -17,7 +18,6 @@ class _RetornoQrCodePageState extends State<RetornoQrCodePage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    String? url_visita;
 
     return Scaffold(
       appBar: AppBar(
@@ -42,23 +42,13 @@ class _RetornoQrCodePageState extends State<RetornoQrCodePage> {
           ],
         ),
       ),
-
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // Text('Url'key: $url_visita),
+          Text("A URL PASSADA FOI: ${widget.url}"),
         ],
       ),
     );
   }
-}
-
-
-class pega_url {
-
-  void onChange(String code) {
-    // TODO: implement onChange
-  }
-
 }

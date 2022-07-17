@@ -1,32 +1,10 @@
-
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
-class PostosController extends ChangeNotifier {
-  double lat = 0.0;
-  double long = 0.0;
-  String erro = '';
-  
-  // PostosController() {
-  //   getPosicao();
-  // }
-  
-
-  
-
-  getPosicao() async {
-    try {
-      Position posicao = await _posicaoAtual();
-      lat = posicao.latitude;
-      long = posicao.longitude;
-     
-    } catch (e) {
-      erro = e.toString();
-    }
-    notifyListeners();
-  }
-
-  Future<Position> _posicaoAtual() async {
+class LocalizacaoController {
+  Future<String> posicaoAtual() async {
     LocationPermission permissao;
 
     bool ativado = await Geolocator.isLocationServiceEnabled();
@@ -45,7 +23,34 @@ class PostosController extends ChangeNotifier {
     if (permissao == LocationPermission.deniedForever) {
       return Future.error('Você precisa autorizar o acesso à localização');
     }
+    Position posicao = await Geolocator.getCurrentPosition();
+    double latitude = posicao.latitude;
+    double longitude = posicao.longitude;
+    Future<String> local_Valido = validaLocalizacao(latitude, longitude);
 
-    return await Geolocator.getCurrentPosition();
+    return local_Valido;
+  }
+
+  Future<String> validaLocalizacao(
+      double latitude_user, double longitude_user) async {
+    double xmininolocalValido = -15.88009;
+    double xmaximolocalValido = -15.87894;
+
+    double yminimolocalValido = -52.30838;
+    double ymaxinolocalValido = -52.30764;
+
+
+    double latitude = latitude_user;
+    double longitude = longitude_user;
+
+    if (latitude >= xmininolocalValido &&
+        latitude <= xmaximolocalValido &&
+        longitude >= yminimolocalValido &&
+        longitude <= ymaxinolocalValido) {
+      return ("sim");
+    } else {
+      return ("nao");
+    }
+    
   }
 }

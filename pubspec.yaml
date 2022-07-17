@@ -21,8 +21,6 @@ dependencies:
   page_transition: ^2.0.9
   provider: ^5.0.0
   http: ^0.13.4
-  combos: ^1.2.0
-  dropdown_cidades: ^0.0.2
   shared_preferences: ^2.0.15
 
 

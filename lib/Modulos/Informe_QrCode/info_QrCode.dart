@@ -17,10 +17,8 @@ class InforQrCodePage extends StatefulWidget {
 
 class _InforQrCodePageState extends State<InforQrCodePage> {
   String ticket = '';
-  final urlCode = pega_url();
-  
+  String? url;
 
-  // List<String> tickets = [];
 
   readQRCode() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
@@ -30,7 +28,8 @@ class _InforQrCodePageState extends State<InforQrCodePage> {
       ScanMode.QR,
     );
     setState(() => ticket = code != '-1' ? code : 'Não validado');
-    
+    // ignore: use_build_context_synchronously
+    Navigator.push(context, MaterialPageRoute(builder: (context)=>RetornoQrCodePage(code)));
   }
 
   @override
