@@ -114,7 +114,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   verificainicializacao(String localValido) {
-    if (localValido == "nao") {
+    if (localValido == "sim") {
       Navigator.pushNamed(context, "/infoScan");
     } else {
       showInfoDialog(

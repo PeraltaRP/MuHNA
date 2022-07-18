@@ -13,9 +13,14 @@ static final alert = GoogleFonts.lexendDeca(
     fontWeight: FontWeight.w600,
     color: AppColors.primary,
   );
+  static final alert_title = GoogleFonts.inter(
+    fontSize: 22,
+    fontWeight: FontWeight.w700,
+    color: AppColors.primary,
+  );
   
   static final alertbutton = GoogleFonts.lexendDeca(
-    fontSize: 12,
+    fontSize: 14,
     fontWeight: FontWeight.w600,
     color: AppColors.primary,
   );

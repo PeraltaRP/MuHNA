@@ -60,7 +60,7 @@ showInfoDialog(BuildContext context, String title, String description,
   );
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text(title, style: TextStyles.alert),
+    title: Text(title, style: TextStyles.alert_title),
     content: Text(description, style: TextStyles.alert),
     actions: [
       confirmButton,
@@ -68,6 +68,7 @@ showInfoDialog(BuildContext context, String title, String description,
   );
   // show the dialog
   showDialog(
+    barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
       return alert;

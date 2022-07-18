@@ -32,7 +32,7 @@ class LocalizacaoController {
   }
 
   Future<String> validaLocalizacao(
-      double latitude_user, double longitude_user) async {
+    double latitude_user, double longitude_user) async {
     double xmininolocalValido = -15.88009;
     double xmaximolocalValido = -15.87894;
 
