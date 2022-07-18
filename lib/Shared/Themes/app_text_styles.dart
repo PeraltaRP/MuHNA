@@ -8,7 +8,17 @@ class TextStyles {
     fontWeight: FontWeight.w700,
     color: AppColors.background,
   );
-
+static final alert = GoogleFonts.lexendDeca(
+    fontSize: 14,
+    fontWeight: FontWeight.w600,
+    color: AppColors.primary,
+  );
+  
+  static final alertbutton = GoogleFonts.lexendDeca(
+    fontSize: 12,
+    fontWeight: FontWeight.w600,
+    color: AppColors.primary,
+  );
   static final titleHome = GoogleFonts.lexendDeca(
     fontSize: 20,
     fontWeight: FontWeight.w600,

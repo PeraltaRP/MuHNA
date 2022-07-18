@@ -1,5 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:muhna/Shared/Themes/app_colors.dart';
+import 'package:muhna/Shared/Themes/app_text_styles.dart';
+import 'package:muhna/Shared/Widgets/exit_program/exit_program.dart';
 
 showConfirmDialog(
   BuildContext context,
@@ -41,19 +44,24 @@ showConfirmDialog(
   );
 }
 
-showInfoDialog(BuildContext context, String title, String description, String confirmBtnTxt) {
+showInfoDialog(BuildContext context, String title, String description,
+    String confirmBtnTxt) {
   // set up the buttons
 
   Widget confirmButton = FlatButton(
-    child: Text(confirmBtnTxt),
+    child: Text(
+      confirmBtnTxt,
+      style: TextStyles.alertbutton,
+    ),
     onPressed: () {
-      Navigator.of(context).pop(); // dismiss dialog
+      ExitProgram();
+      // Navigator.of(context).pop(); // dismiss dialog
     },
   );
   // set up the AlertDialog
   AlertDialog alert = AlertDialog(
-    title: Text(title),
-    content: Text(description),
+    title: Text(title, style: TextStyles.alert),
+    content: Text(description, style: TextStyles.alert),
     actions: [
       confirmButton,
     ],

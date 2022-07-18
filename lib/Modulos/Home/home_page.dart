@@ -1,12 +1,14 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:muhna/Modulos/Localiza%C3%A7%C3%A3o/local_Controller.dart';
 
 import 'package:muhna/Shared/Navigator/botao_visita.dart';
 import 'package:muhna/Shared/Themes/app_colors.dart';
 import 'package:muhna/Shared/Themes/app_images.dart';
 import 'package:muhna/Shared/Themes/app_text_styles.dart';
+import 'package:muhna/Shared/Widgets/exit_program/exit_program.dart';
 
 import '../../Shared/Alertas/AlertDialog.dart';
 import '../../Shared/Navigator/botao_chekin.dart';
@@ -39,7 +41,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-  
     final size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
@@ -66,21 +67,20 @@ class _HomePageState extends State<HomePage> {
       ),
       // inicio do cabeçanho
       body: SizedBox(
-        
         width: size.width,
         height: size.height,
         child: Stack(
           children: [
-            InkWell(
-                         onTap: () {
-  // Show the alert dialog with single button
-  showInfoDialog(context, 
-                 "You have now received an email!",
-                 "We have sent a new password, which can be changed",
-                 "OK",);
-                          
-},
-                        ),
+//             InkWell(
+//                          onTap: () {
+//   // Show the alert dialog with single button
+//   showInfoDialog(context,
+//                  "Fora dos Limites de Atuação",
+//                  "Poxa :( Infelizente o app só funciona dentra",
+//                  "OK",);
+
+// },
+            // ),
             Positioned(
               top: size.width * 0.1,
               bottom: 1,
@@ -93,7 +93,9 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: const EdgeInsets.only(),
                     child: BotaoVisita(
-                      onTap: () => Navigator.pushNamed(context, "/infoScan"),
+                      onTap: () {
+                        verificainicializacao(localValido!);
+                      },
                     ),
                   ),
                   Padding(
@@ -105,10 +107,23 @@ class _HomePageState extends State<HomePage> {
                 ],
               ),
             ),
-            Text("local: $localValido"),
           ],
         ),
       ),
     );
+  }
+
+  verificainicializacao(String localValido) {
+    if (localValido == "nao") {
+      Navigator.pushNamed(context, "/infoScan");
+    } else {
+      showInfoDialog(
+        context,
+        "Fora dos Limites de Atuação",
+        "Poxa :( Infelizente o app só funciona dentro da UFMT-Araguaia",
+        "OK",
+      );
+     
+    }
   }
 }
