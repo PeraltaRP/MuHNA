@@ -1,5 +1,7 @@
 
 import 'package:flutter/material.dart';
+import 'package:muhna/Modulos/Formulario_Presenca/formulario.dart';
+import 'package:muhna/Modulos/Home/home_page.dart';
 
 import 'package:muhna/Modulos/Informe_QrCode/info_QrCode.dart';
 import 'package:muhna/Modulos/Splash/splash_page.dart';
@@ -13,11 +15,11 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Muhna',
       theme: ThemeData(primaryColor: AppColors.primary),
-      initialRoute: "/splash",
+      initialRoute: "/formulario",
       routes: {
         "/splash": (context) => const SplashPage(),
-        // "/home": (context) => const HomePage(),
-        // "/formulario": (context) => FormularioPage(),
+        "/home": (context) => const HomePage(),
+        "/formulario": (context) => FormularioPage(),
         "/infoScan": (context) => const InforQrCodePage(),
         // "/local":(context) => PostosPage(),
         // "/resposta": (context) => const RespostaPage(),

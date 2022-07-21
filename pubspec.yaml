@@ -43,4 +43,6 @@ flutter_icons:
   ios: true
   # image_path: "assets/icon/icon2.png"
   image_path: "assets/icon/icon3.png"
-  
+
+  # comando para trocar o icone:
+  #  flutter pub run flutter_launcher_icons:main

@@ -6,19 +6,20 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:muhna/Modulos/API/api_formulario.dart';
 
+import '../../Shared/Alertas/AlertDialog.dart';
 import '../../Shared/Themes/app_colors.dart';
 import '../../Shared/Themes/app_images.dart';
 import '../../Shared/Themes/app_text_styles.dart';
 import '../../Shared/Widgets/input_text/input_text_widget.dart';
 
-class ForluarioPage extends StatefulWidget {
-  const ForluarioPage({Key? key}) : super(key: key);
+class FormularioPage extends StatefulWidget {
+  const FormularioPage({Key? key}) : super(key: key);
 
   @override
-  State<ForluarioPage> createState() => _ForluarioPageState();
+  State<FormularioPage> createState() => _FormularioPageState();
 }
 
-class _ForluarioPageState extends State<ForluarioPage> {
+class _FormularioPageState extends State<FormularioPage> {
   final _formKey = GlobalKey<FormState>();
   // vaiaveis para o cadastro do visitante
   final _nomeController = TextEditingController();
@@ -63,20 +64,37 @@ class _ForluarioPageState extends State<ForluarioPage> {
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.primary,
         toolbarHeight: size.height * 0.15,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        title: Column(
           children: [
-            Image.asset(
-              AppImages.logoTamandua,
-              height: size.height * 0.08,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AppImages.logoTamandua,
+                  height: size.height * 0.08,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(11.0),
+                  child: Text(
+                    "MuHNA",
+                    style: (TextStyles.teste),
+                  ),
+                ),
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.all(11.0),
-              child: Text(
-                "MuHNA",
-                style: (TextStyles.teste),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // ignore: prefer_const_literals_to_create_immutables
+              children: [
+                Container(
+                  child: Text(
+                    "Museu de História Natural do Araguaia",
+                    style: (TextStyles.subtitlelogo),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -97,10 +115,9 @@ class _ForluarioPageState extends State<ForluarioPage> {
                     onChanged: (String nome) {},
                     // onChanged: (value) => (),
                     controller: _nomeController,
-
                     validator: (nome) {
                       if (nome == null || nome.isEmpty) {
-                        return 'please';
+                        return 'Este espaço não pode ficar em branco';
                       }
                       return null;
                     },
@@ -110,12 +127,24 @@ class _ForluarioPageState extends State<ForluarioPage> {
                     icon: Icons.account_balance_outlined,
                     onChanged: (String instituicao) {},
                     controller: _instituicaoController,
+                    validator: (instituicao) {
+                      if (instituicao == null || instituicao.isEmpty) {
+                        return 'Este espaço não pode ficar em branco';
+                      }
+                      return null;
+                    },
                   ),
                   InputTextWidget(
                     label: "Idade",
                     icon: Icons.star_border_outlined,
                     onChanged: (String idade) {},
                     controller: _idadeController,
+                    validator: (idade) {
+                      if (idade == null || idade.isEmpty) {
+                        return 'Este espaço não pode ficar em branco';
+                      }
+                      return null;
+                    },
                   ),
                   isLoading
                       ? const Center(
@@ -139,7 +168,7 @@ class _ForluarioPageState extends State<ForluarioPage> {
                                 },
                                 onSelected: (value) {
                                   setState(() {
-                                    _cidadeController = value as String?;
+                                    _cidadeController = value as String;
                                   });
                                 },
                                 fieldViewBuilder: (context, controller,
@@ -190,22 +219,55 @@ class _ForluarioPageState extends State<ForluarioPage> {
                                   );
                                 },
                               ),
-                              ElevatedButton(
-                                onPressed: () async {
-                                  FocusScopeNode currentFocus =
-                                      FocusScope.of(context);
-                                  if (_formKey.currentState!.validate()) {
-                                    bool deucerto = await Cadastrando_visitante(_nomeController.text, _instituicaoController.text, _cidadeController, _idadeController.text);
-                                    if (!currentFocus.hasPrimaryFocus) {
-                                      currentFocus.unfocus();
-                                    }
-                                    if (deucerto) {
-                                      ScaffoldMessenger.of(context)
-                                          .showSnackBar(snackbar);
-                                    } else {}
-                                  }
-                                },
-                                child: Text('Cadasrar'),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.pushNamed(context, '/home');
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        shape: (RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10))),
+                                        side: BorderSide(
+                                            color: AppColors.primary),
+                                        primary: AppColors.background,
+                                        onPrimary: AppColors.primary,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 13),
+                                        textStyle: const TextStyle(
+                                            fontSize: 21,
+                                            fontWeight: FontWeight.bold)),
+                                    child: const Text('Cancelar'),
+                                  ),
+                                  ElevatedButton(
+                                    onPressed: () async {
+                                      FocusScopeNode currentFocus =
+                                          FocusScope.of(context);
+                                      if (_formKey.currentState!.validate()) {
+                                        CadastroVisitante();
+                                        // clearText();
+                                      }
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                        shape: (RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(10))),
+                                        side: BorderSide(
+                                            color: AppColors.primary),
+                                        primary: AppColors.background,
+                                        onPrimary: AppColors.primary,
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 13),
+                                        textStyle: const TextStyle(
+                                            fontSize: 21,
+                                            fontWeight: FontWeight.bold)),
+                                    child: const Text('Cadastrar'),
+                                  ),
+                                ],
                               ),
                             ],
                           ),
@@ -217,5 +279,39 @@ class _ForluarioPageState extends State<ForluarioPage> {
         ),
       ),
     );
+  }
+
+  void clearText() {
+    _formKey.currentState?.reset();
+    _nomeController.clear();
+    _instituicaoController.clear();
+    _cidadeController = "";
+    _idadeController.clear();
+  }
+
+  CadastroVisitante() async {
+    bool respostaServidor = await cadastro(_nomeController.text,
+        _instituicaoController.text, _cidadeController, _idadeController.text);
+
+    print(respostaServidor);
+    if (respostaServidor == true) {
+      // ignore: use_build_context_synchronously
+      showInfoDialog(
+        false,
+        context,
+        "Tudo Certo :)",
+        "Obrigado pela visita, volte sempre",
+        "ok",
+      );
+    } else {
+      // ignore: use_build_context_synchronously
+      showInfoDialog(
+        false,
+        context,
+        "Servidor Off Line",
+        "Não é você! Sou eu. Eu que estou Offline ;(",
+        "ok",
+      );
+    }
   }
 }

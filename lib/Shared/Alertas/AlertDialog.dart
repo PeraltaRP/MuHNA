@@ -44,8 +44,9 @@ showConfirmDialog(
   );
 }
 
-showInfoDialog(BuildContext context, String title, String description,
-    String confirmBtnTxt) {
+// dialogo com apenas um botão
+showInfoDialog(bool status, BuildContext context, String title,
+    String description, String confirmBtnTxt) {
   // set up the buttons
 
   Widget confirmButton = FlatButton(
@@ -66,12 +67,35 @@ showInfoDialog(BuildContext context, String title, String description,
       confirmButton,
     ],
   );
+
+  // alert Form
+  Widget confirmButtonForm = FlatButton(
+    child: Text(
+      confirmBtnTxt,
+      style: TextStyles.alertbutton,
+    ),
+    onPressed: () {
+      Navigator.of(context).pop(); // dismiss dialog
+    },
+  );
+  // set up the AlertDialog
+  AlertDialog alertForm = AlertDialog(
+    title: Text(title, style: TextStyles.alert_title),
+    content: Text(description, style: TextStyles.alert),
+    actions: [
+      confirmButtonForm,
+    ],
+  );
   // show the dialog
   showDialog(
     barrierDismissible: false,
     context: context,
     builder: (BuildContext context) {
-      return alert;
+      if (status == true) {
+        return alert;
+      } else {
+        return alertForm;
+      }
     },
   );
 }

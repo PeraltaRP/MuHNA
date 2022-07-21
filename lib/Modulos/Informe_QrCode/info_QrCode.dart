@@ -19,7 +19,6 @@ class _InforQrCodePageState extends State<InforQrCodePage> {
   String ticket = '';
   String? url;
 
-
   readQRCode() async {
     String code = await FlutterBarcodeScanner.scanBarcode(
       "#FFFFFF",
@@ -29,7 +28,8 @@ class _InforQrCodePageState extends State<InforQrCodePage> {
     );
     setState(() => ticket = code != '-1' ? code : 'Não validado');
     // ignore: use_build_context_synchronously
-    Navigator.push(context, MaterialPageRoute(builder: (context)=>RetornoQrCodePage(code)));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => RetornoQrCodePage(code)));
   }
 
   @override
@@ -41,20 +41,37 @@ class _InforQrCodePageState extends State<InforQrCodePage> {
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.primary,
         toolbarHeight: size.height * 0.15,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        title: Column(
           children: [
-            Image.asset(
-              AppImages.logoTamandua,
-              height: size.height * 0.08,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AppImages.logoTamandua,
+                  height: size.height * 0.08,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(11.0),
+                  child: Text(
+                    "MuHNA",
+                    style: (TextStyles.teste),
+                  ),
+                ),
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.all(11.0),
-              child: Text(
-                "MuHNA",
-                style: (TextStyles.teste),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // ignore: prefer_const_literals_to_create_immutables
+              children: [
+                Container(
+                  child: Text(
+                    "Museu de História Natural do Araguaia",
+                    style: (TextStyles.subtitlelogo),
+                  ),
+                ),
+              ],
             ),
           ],
         ),

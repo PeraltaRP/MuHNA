@@ -8,6 +8,15 @@ class TextStyles {
     fontWeight: FontWeight.w700,
     color: AppColors.background,
   );
+
+
+  static final subtitlelogo = GoogleFonts.nunito(
+    fontSize: 18,
+    fontWeight: FontWeight.w700,
+    color: AppColors.background,
+  );
+
+
 static final alert = GoogleFonts.lexendDeca(
     fontSize: 14,
     fontWeight: FontWeight.w600,

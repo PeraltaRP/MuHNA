@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:muhna/Modulos/Localiza%C3%A7%C3%A3o/local_Controller.dart';
+import 'package:muhna/Modulos/API/api_formulario.dart';
 
 import 'package:muhna/Shared/Navigator/botao_visita.dart';
 import 'package:muhna/Shared/Themes/app_colors.dart';
@@ -12,6 +13,7 @@ import 'package:muhna/Shared/Widgets/exit_program/exit_program.dart';
 
 import '../../Shared/Alertas/AlertDialog.dart';
 import '../../Shared/Navigator/botao_chekin.dart';
+import '../Localizacao/local_Controller.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -22,20 +24,26 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String? localValido;
+  String? servidorIsOnline;
 
   bool estacerto = false;
 
   Future<void> getlocal() async {
     final String local = await LocalizacaoController().posicaoAtual();
-
     setState(() => localValido = local);
+  }
+
+  Future<void> statusServidor() async {
+    final String status = await isonline();
+    setState(() => servidorIsOnline = status);
   }
 
   @override
   void initState() {
-    // TODO: implement initState
     getlocal();
-    localValido = '';
+    statusServidor();
+    localValido = 'nao';
+    servidorIsOnline = 'offline';
     super.initState();
   }
 
@@ -47,20 +55,37 @@ class _HomePageState extends State<HomePage> {
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.primary,
         toolbarHeight: size.height * 0.15,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        title: Column(
           children: [
-            Image.asset(
-              AppImages.logoTamandua,
-              height: size.height * 0.08,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AppImages.logoTamandua,
+                  height: size.height * 0.08,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(11.0),
+                  child: Text(
+                    "MuHNA",
+                    style: (TextStyles.teste),
+                  ),
+                ),
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.all(11.0),
-              child: Text(
-                "MuHNA",
-                style: (TextStyles.teste),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // ignore: prefer_const_literals_to_create_immutables
+              children: [
+                Container(
+                  child: Text(
+                    "Museu de História Natural do Araguaia",
+                    style: (TextStyles.subtitlelogo),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
@@ -71,16 +96,6 @@ class _HomePageState extends State<HomePage> {
         height: size.height,
         child: Stack(
           children: [
-//             InkWell(
-//                          onTap: () {
-//   // Show the alert dialog with single button
-//   showInfoDialog(context,
-//                  "Fora dos Limites de Atuação",
-//                  "Poxa :( Infelizente o app só funciona dentra",
-//                  "OK",);
-
-// },
-            // ),
             Positioned(
               top: size.width * 0.1,
               bottom: 1,
@@ -100,9 +115,9 @@ class _HomePageState extends State<HomePage> {
                   ),
                   Padding(
                     padding: const EdgeInsets.only(),
-                    child: BotaoChekin(
-                      onTap: () => Navigator.pushNamed(context, "/formulario"),
-                    ),
+                    child: BotaoChekin(onTap: () {
+                      verificaServidorCadastroVisitante(servidorIsOnline!);
+                    }),
                   ),
                 ],
               ),
@@ -118,12 +133,27 @@ class _HomePageState extends State<HomePage> {
       Navigator.pushNamed(context, "/infoScan");
     } else {
       showInfoDialog(
+        true,
         context,
         "Fora dos Limites de Atuação",
-        "Poxa :( Infelizente o app só funciona dentro da UFMT-Araguaia",
+        "Poxa :( Infelizmente o app só funciona dentro da UFMT-Araguaia",
         "OK",
       );
-     
+    }
+  }
+
+  verificaServidorCadastroVisitante(String servidorIsOnline) {
+    print(servidorIsOnline);
+    if (servidorIsOnline == 'online') {
+      Navigator.pushNamed(context, "/formulario");
+    } else {
+      showInfoDialog(
+        false,
+        context,
+        "Servidor Off Line",
+        "Não é você! Sou eu. Eu que estou Offline ;(",
+        "ok",
+      );
     }
   }
 }

@@ -24,20 +24,37 @@ class _RetornoQrCodePageState extends State<RetornoQrCodePage> {
         automaticallyImplyLeading: false,
         backgroundColor: AppColors.primary,
         toolbarHeight: size.height * 0.15,
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
+        title: Column(
           children: [
-            Image.asset(
-              AppImages.logoTamandua,
-              height: size.height * 0.08,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Image.asset(
+                  AppImages.logoTamandua,
+                  height: size.height * 0.08,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(11.0),
+                  child: Text(
+                    "MuHNA",
+                    style: (TextStyles.teste),
+                  ),
+                ),
+              ],
             ),
-            Container(
-              padding: const EdgeInsets.all(11.0),
-              child: Text(
-                "MuHNA",
-                style: (TextStyles.teste),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // ignore: prefer_const_literals_to_create_immutables
+              children: [
+                Container(
+                  child: Text(
+                    "Museu de História Natural do Araguaia",
+                    style: (TextStyles.subtitlelogo),
+                  ),
+                ),
+              ],
             ),
           ],
         ),
