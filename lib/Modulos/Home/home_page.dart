@@ -1,15 +1,12 @@
 import 'dart:async';
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:muhna/Modulos/API/api_formulario.dart';
 
 import 'package:muhna/Shared/Navigator/botao_visita.dart';
 import 'package:muhna/Shared/Themes/app_colors.dart';
 import 'package:muhna/Shared/Themes/app_images.dart';
 import 'package:muhna/Shared/Themes/app_text_styles.dart';
-import 'package:muhna/Shared/Widgets/exit_program/exit_program.dart';
 
 import '../../Shared/Alertas/AlertDialog.dart';
 import '../../Shared/Navigator/botao_chekin.dart';
@@ -23,15 +20,15 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String? localValido;
+  late bool localValido;
   String? servidorIsOnline;
 
   bool estacerto = false;
 
-  Future<void> getlocal() async {
-    final String local = await LocalizacaoController().posicaoAtual();
-    setState(() => localValido = local);
-  }
+  // Future<void> getlocal() async {
+  //  bool local = await LocalizacaoController().posicaoAtual();
+  //   setState(() => localValido = local);
+  // }
 
   Future<void> statusServidor() async {
     final String status = await isonline();
@@ -40,9 +37,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    getlocal();
+    // getlocal();
     statusServidor();
-    localValido = 'nao';
+    localValido = true;
     servidorIsOnline = 'offline';
     super.initState();
   }
@@ -79,11 +76,9 @@ class _HomePageState extends State<HomePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                Container(
-                  child: Text(
-                    "Museu de História Natural do Araguaia",
-                    style: (TextStyles.subtitlelogo),
-                  ),
+                Text(
+                  "Museu de História Natural do Araguaia",
+                  style: (TextStyles.subtitlelogo),
                 ),
               ],
             ),
@@ -109,14 +104,14 @@ class _HomePageState extends State<HomePage> {
                     padding: const EdgeInsets.only(),
                     child: BotaoVisita(
                       onTap: () {
-                        verificainicializacao(localValido!);
+                        Navigator.pushNamed(context, "/infoScan");
                       },
                     ),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(),
                     child: BotaoChekin(onTap: () {
-                      verificaServidorCadastroVisitante(servidorIsOnline!);
+                      verificaServidorCadastroVisitante(servidorIsOnline!, localValido);
                     }),
                   ),
                 ],
@@ -128,24 +123,29 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
-  verificainicializacao(String localValido) {
-    if (localValido == "sim") {
-      Navigator.pushNamed(context, "/infoScan");
+  verificainicializacao(bool localValido) {
+    if (localValido == "") {
+      return true;
     } else {
       showInfoDialog(
-        true,
+        false,
         context,
         "Fora dos Limites de Atuação",
         "Poxa :( Infelizmente o app só funciona dentro da UFMT-Araguaia",
         "OK",
       );
     }
+    return false;
   }
 
-  verificaServidorCadastroVisitante(String servidorIsOnline) {
-    print(servidorIsOnline);
+  // ignore: non_constant_identifier_names
+  verificaServidorCadastroVisitante(String servidorIsOnline, bool LocalValido)  {
     if (servidorIsOnline == 'online') {
-      Navigator.pushNamed(context, "/formulario");
+      bool local = verificainicializacao(localValido);
+      if (localValido == true) {
+        Navigator.pushNamed(context, "/formulario");
+      }
+
     } else {
       showInfoDialog(
         false,

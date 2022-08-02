@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
+
+
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart';
-import 'package:provider/provider.dart';
 
 class LocalizacaoController {
-  Future<String> posicaoAtual() async {
+  Future<bool> posicaoAtual() async {
     LocationPermission permissao;
 
     bool ativado = await Geolocator.isLocationServiceEnabled();
@@ -26,30 +25,35 @@ class LocalizacaoController {
     Position posicao = await Geolocator.getCurrentPosition();
     double latitude = posicao.latitude;
     double longitude = posicao.longitude;
-    Future<String> local_Valido = validaLocalizacao(latitude, longitude);
+    Future<bool> localValido = validaLocalizacao(latitude, longitude);
 
-    return local_Valido;
+    return localValido;
   }
 
-  Future<String> validaLocalizacao(
-    double latitude_user, double longitude_user) async {
+  Future<bool> validaLocalizacao(
+    double latitudeUser, double longitudeUser) async {
     double xmininolocalValido = -15.88009;
     double xmaximolocalValido = -15.87894;
 
     double yminimolocalValido = -52.30838;
     double ymaxinolocalValido = -52.30764;
 
+    // double xmininolocalValido = -15877162;
+    // double xmaximolocalValido = -15875073;
 
-    double latitude = latitude_user;
-    double longitude = longitude_user;
+    // double yminimolocalValido = -52314718;
+    // double ymaxinolocalValido = -52311671;
+
+    double latitude = latitudeUser;
+    double longitude = longitudeUser;
 
     if (latitude >= xmininolocalValido &&
         latitude <= xmaximolocalValido &&
         longitude >= yminimolocalValido &&
         longitude <= ymaxinolocalValido) {
-      return ("sim");
+      return (true);
     } else {
-      return ("nao");
+      return (false);
     }
     
   }

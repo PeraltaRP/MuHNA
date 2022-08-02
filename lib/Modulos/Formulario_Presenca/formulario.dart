@@ -4,13 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:http/http.dart';
 import 'package:muhna/Modulos/API/api_formulario.dart';
+import 'package:muhna/Modulos/API/api_sheets.dart';
+import 'package:muhna/model/visitante_controller.dart';
+import 'package:muhna/model/visitante_dados.dart';
 
 import '../../Shared/Alertas/AlertDialog.dart';
 import '../../Shared/Themes/app_colors.dart';
 import '../../Shared/Themes/app_images.dart';
 import '../../Shared/Themes/app_text_styles.dart';
 import '../../Shared/Widgets/input_text/input_text_widget.dart';
+import '../../model/visitante_fields.dart';
 
 class FormularioPage extends StatefulWidget {
   const FormularioPage({Key? key}) : super(key: key);
@@ -20,6 +25,8 @@ class FormularioPage extends StatefulWidget {
 }
 
 class _FormularioPageState extends State<FormularioPage> {
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
   final _formKey = GlobalKey<FormState>();
   // vaiaveis para o cadastro do visitante
   final _nomeController = TextEditingController();
@@ -54,7 +61,48 @@ class _FormularioPageState extends State<FormularioPage> {
     super.initState();
     constroiAutoComplete();
   }
+
 // Fim da criação do autocomplete
+  void CadastroVisitante() async {
+    List<String> cidadeEstado = _cidadeController!.split(" - ");
+    VisitanteDados visitante_dados = VisitanteDados(
+        '02/08/2022',
+        _nomeController.text,
+        _instituicaoController.text,
+        _idadeController.text,
+        cidadeEstado[0],
+        cidadeEstado[1]);
+
+    VisitanteController visitante_controller =
+        VisitanteController((String response) {
+      print("Response: $response");
+      if (response == VisitanteController.STATUS_SUCCESS) {
+        _showSnackbar("Sucesso");
+      } else {
+        _showSnackbar("Error");
+      }
+    });
+    _showSnackbar("Submiting Form");
+    visitante_controller.submitForm(visitante_dados);
+  }
+
+  _showSnackbar(String message) {
+    final snackBar = SnackBar(
+      content: Text(message),
+    );
+// _nomeController.text, _instituicaoController.text,cidadeEstado[0],cidadeEstado[1], _idadeController.tex
+    //   print(_nomeController.text);
+    // }
+    //   final visitante = {
+    //     VisitanteFields.nome: _nomeController.text.trim(),
+    //     VisitanteFields.instituicao: _instituicaoController.text.trim(),
+    //     VisitanteFields.idade: _idadeController.text.trim(),
+    //     VisitanteFields.cidade: cidadeEstado[0],
+    //     VisitanteFields.estado: cidadeEstado[1],
+    //   };
+    //   print(visitante[1]);
+    //   await VisistanteSheetsApi.insert([visitante]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -249,6 +297,7 @@ class _FormularioPageState extends State<FormularioPage> {
                                           FocusScope.of(context);
                                       if (_formKey.currentState!.validate()) {
                                         CadastroVisitante();
+
                                         // clearText();
                                       }
                                     },
@@ -289,29 +338,28 @@ class _FormularioPageState extends State<FormularioPage> {
     _idadeController.clear();
   }
 
-  CadastroVisitante() async {
-    bool respostaServidor = await cadastro(_nomeController.text,
-        _instituicaoController.text, _cidadeController, _idadeController.text);
+  //   bool respostaServidor = await cadastro(_nomeController.text,
+  //       _instituicaoController.text, _cidadeController, _idadeController.text);
 
-    print(respostaServidor);
-    if (respostaServidor == true) {
-      // ignore: use_build_context_synchronously
-      showInfoDialog(
-        false,
-        context,
-        "Tudo Certo :)",
-        "Obrigado pela visita, volte sempre",
-        "ok",
-      );
-    } else {
-      // ignore: use_build_context_synchronously
-      showInfoDialog(
-        false,
-        context,
-        "Servidor Off Line",
-        "Não é você! Sou eu. Eu que estou Offline ;(",
-        "ok",
-      );
-    }
-  }
+  //   print(respostaServidor);
+  //   if (respostaServidor == true) {
+  //     // ignore: use_build_context_synchronously
+  //     showInfoDialog(
+  //       false,
+  //       context,
+  //       "Tudo Certo :)",
+  //       "Obrigado pela visita, volte sempre",
+  //       "ok",
+  //     );
+  //   } else {
+  //     // ignore: use_build_context_synchronously
+  //     showInfoDialog(
+  //       false,
+  //       context,
+  //       "Servidor Off Line",
+  //       "Não é você! Sou eu. Eu que estou Offline ;(",
+  //       "ok",
+  //     );
+  //   }
+
 }

@@ -15,7 +15,7 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Muhna',
       theme: ThemeData(primaryColor: AppColors.primary),
-      initialRoute: "/formulario",
+      initialRoute: "/splash",
       routes: {
         "/splash": (context) => const SplashPage(),
         "/home": (context) => const HomePage(),

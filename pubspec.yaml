@@ -22,6 +22,7 @@ dependencies:
   provider: ^5.0.0
   http: ^0.13.4
   shared_preferences: ^2.0.15
+  gsheets: ^0.4.2
 
 
 dev_dependencies:
