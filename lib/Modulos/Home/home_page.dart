@@ -1,7 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:muhna/Modulos/API/api_formulario.dart';
+import 'package:muhna/Api_Tainacan/api_provider.dart';
+import 'package:muhna/Modulos/form_from_gsheets/visitante_sheets_api.dart';
 
 import 'package:muhna/Shared/Navigator/botao_visita.dart';
 import 'package:muhna/Shared/Themes/app_colors.dart';
@@ -21,9 +22,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late bool localValido;
-  String? servidorIsOnline;
-
-  bool estacerto = false;
+  late bool isonline;
 
   // Future<void> getlocal() async {
   //  bool local = await LocalizacaoController().posicaoAtual();
@@ -31,16 +30,19 @@ class _HomePageState extends State<HomePage> {
   // }
 
   Future<void> statusServidor() async {
-    final String status = await isonline();
-    setState(() => servidorIsOnline = status);
+    bool servidor = await VisitanteSheetsApi.isonline();
+    tainacan();
+    setState(() => isonline = servidor);
   }
 
   @override
   void initState() {
     // getlocal();
+    // login_api();
     statusServidor();
+
     localValido = true;
-    servidorIsOnline = 'offline';
+    isonline = false;
     super.initState();
   }
 
@@ -111,7 +113,7 @@ class _HomePageState extends State<HomePage> {
                   Padding(
                     padding: const EdgeInsets.only(),
                     child: BotaoChekin(onTap: () {
-                      verificaServidorCadastroVisitante(servidorIsOnline!, localValido);
+                      verificaServidorCadastroVisitante(isonline, localValido);
                     }),
                   ),
                 ],
@@ -139,13 +141,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   // ignore: non_constant_identifier_names
-  verificaServidorCadastroVisitante(String servidorIsOnline, bool LocalValido)  {
-    if (servidorIsOnline == 'online') {
+  verificaServidorCadastroVisitante(bool isonline, bool LocalValido) async {
+    if (isonline == true) {
       bool local = verificainicializacao(localValido);
       if (localValido == true) {
-        Navigator.pushNamed(context, "/formulario");
+        Navigator.pushNamed(context, "/formsheetslocal");
       }
-
     } else {
       showInfoDialog(
         false,
@@ -154,6 +155,10 @@ class _HomePageState extends State<HomePage> {
         "Não é você! Sou eu. Eu que estou Offline ;(",
         "ok",
       );
+
+      bool verificaNovamente = await VisitanteSheetsApi.isonline();
+
+      verificaServidorCadastroVisitante(verificaNovamente, LocalValido);
     }
   }
 }

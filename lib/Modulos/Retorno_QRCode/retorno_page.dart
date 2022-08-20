@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/foundation/key.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:muhna/Shared/Themes/app_colors.dart';
 
 import '../../Shared/Themes/app_images.dart';
 import '../../Shared/Themes/app_text_styles.dart';
 
+// ignore: must_be_immutable
 class RetornoQrCodePage extends StatefulWidget {
   late String url;
   RetornoQrCodePage(this.url, {Key? key}) : super(key: key);

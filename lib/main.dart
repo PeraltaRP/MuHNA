@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:muhna/Modulos/API/api_sheets.dart';
 
 import 'AppWidget.dart';
+import 'Modulos/form_from_gsheets/visitante_sheets_api.dart';
 
 void main() async {
-  // await VisistanteSheetsApi.init();
-  runApp(const AppWidget());
+  WidgetsFlutterBinding.ensureInitialized();
+  try{
+  await VisitanteSheetsApi.init();
+  }catch(e){
+    print("estamos aqui $e");
+  }
+  runApp( const AppWidget());
 }

@@ -1,11 +1,10 @@
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:muhna/Modulos/Retorno_QRCode/retorno_page.dart';
-import 'package:muhna/Shared/Navigator/botaoContinuar.dart';
 import 'package:muhna/Shared/Themes/app_colors.dart';
 import 'package:muhna/Shared/Themes/app_images.dart';
 import 'package:muhna/Shared/Themes/app_text_styles.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class InforQrCodePage extends StatefulWidget {
   const InforQrCodePage({Key? key}) : super(key: key);
@@ -65,11 +64,9 @@ class _InforQrCodePageState extends State<InforQrCodePage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               // ignore: prefer_const_literals_to_create_immutables
               children: [
-                Container(
-                  child: Text(
-                    "Museu de História Natural do Araguaia",
-                    style: (TextStyles.subtitlelogo),
-                  ),
+                Text(
+                  "Museu de História Natural do Araguaia",
+                  style: (TextStyles.subtitlelogo),
                 ),
               ],
             ),
