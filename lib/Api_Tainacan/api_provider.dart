@@ -3,14 +3,17 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:muhna/Variaveis_Privadas/chaves_ocultas.dart';
 
 Future tainacan() async {
+  var chavesOcultas = Chaves();
   try {
-    var username = 'peraltarp';
-    var password = 'pedrorafa';
+    var username = chavesOcultas.usuario;   //usuario que ira logar no sistema wordpress
+    var password = chavesOcultas.senha;     // senha do usuario cadastrado no wordpress
 
-    var url = 'http://192.168.0.6:10003/wp-json/remote-login/login';
+    var url = chavesOcultas.urlLogin;
     var authorization =
+        // ignore: prefer_interpolation_to_compose_strings
         'Basic ' + base64Encode(utf8.encode('$username:$password'));
     var body = jsonEncode({'username': username, 'password': password});
 
@@ -36,16 +39,4 @@ Future tainacan() async {
   } catch (e) {
     print("Site Off Line");
   }
-
-  var response = await http.get(
-      Uri.parse(
-          "http://localhost:10003/wp-json/tainacan/v2/collection/62/items/?recent=true&id=69&_wpnonce=964633fba0"),
-      headers: {"Accept": "application/json"});
-
-var  data = json.decode(response.body)['results'];
-
-  print(data);
 }
-
-
-
