@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:muhna/Api_Tainacan/api_provider.dart';
+import 'package:muhna/Modulos/Api_Tainacan/conexao_tainacan.dart';
 import 'package:muhna/Modulos/form_from_gsheets/visitante_sheets_api.dart';
 
 import 'package:muhna/Shared/Navigator/botao_visita.dart';
@@ -31,7 +31,8 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> statusServidor() async {
     bool servidor = await VisitanteSheetsApi.isonline();
-    tainacan();
+    
+    // AutenticacaoTainacan().tainacan('http://localhost:10003/wp-json/tainacan/v2/collection/6/items/?&id=38');
     setState(() => isonline = servidor);
   }
 
