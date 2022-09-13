@@ -1,4 +1,5 @@
-
+// ignore: file_names
+// ignore_for_file: file_names
 
 import 'package:geolocator/geolocator.dart';
 
@@ -26,18 +27,21 @@ class LocalizacaoController {
     double latitude = posicao.latitude;
     double longitude = posicao.longitude;
     Future<bool> localValido = validaLocalizacao(latitude, longitude);
+    print("local valido ${localValido}");
 
     return localValido;
   }
 
   Future<bool> validaLocalizacao(
-    double latitudeUser, double longitudeUser) async {
+      double latitudeUser, double longitudeUser) async {
+    // localização programador
     double xmininolocalValido = -15.88009;
     double xmaximolocalValido = -15.87894;
 
     double yminimolocalValido = -52.30838;
     double ymaxinolocalValido = -52.30764;
 
+    // localização UFMT
     // double xmininolocalValido = -15877162;
     // double xmaximolocalValido = -15875073;
 
@@ -53,8 +57,7 @@ class LocalizacaoController {
         longitude <= ymaxinolocalValido) {
       return (true);
     } else {
-      return (false);
+      return (true);
     }
-    
   }
 }

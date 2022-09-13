@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:muhna/Shared/Themes/app_text_styles.dart';
 
-
 class LabelButton extends StatelessWidget {
   final String label;
   final VoidCallback onPressed;
@@ -18,7 +17,7 @@ class LabelButton extends StatelessWidget {
       LabelButton(
         label: label,
         onPressed: onPressed,
-        style: TextStyles.buttonHeading,
+        style: TextStyles.buttonBackground,
       );
 
   factory LabelButton.primary(
@@ -26,7 +25,7 @@ class LabelButton extends StatelessWidget {
       LabelButton(
         label: label,
         onPressed: onPressed,
-        style: TextStyles.buttonPrimary,
+        style: TextStyles.buttonBackground,
       );
 
   @override

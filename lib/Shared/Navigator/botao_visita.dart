@@ -33,7 +33,7 @@ class BotaoVisita extends StatelessWidget {
                       AppImages.logoMiniScan,
                       width: 50,
                     ),
-                    SizedBox(
+                    const SizedBox(
                       width: 20,
                     ),
                     Container(

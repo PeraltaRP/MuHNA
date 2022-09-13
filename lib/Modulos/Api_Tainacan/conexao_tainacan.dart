@@ -7,48 +7,88 @@ import 'package:muhna/Modulos/Api_Tainacan/item_model.dart';
 class ApiTainacan {
   static String validaLink(String codigoUrl) {
     if (codigoUrl.contains("tainacan")) {
-      List<String> linkValidado = codigoUrl.split("&_");
-      return (linkValidado[0]);
+      List<String> linkParse = codigoUrl.split("&_");
+      return linkParse[0];
     } else {
       return "link invalido";
     }
   }
 
   static Future<List<ItemScanneado>?> getItem(String codigoUrl) async {
-    Uri url = Uri.parse(codigoUrl);
+    try {
+      Uri url = Uri.parse(codigoUrl);
 
-    http.Response resposta = await http.get(url);
+      http.Response resposta = await http.get(url);
 
-    Map<String, dynamic> map = json.decode(resposta.body);
+      Map<String, dynamic> map = json.decode(resposta.body);
+      List<dynamic> data = map["items"];
+      List<dynamic> listatunb = map['items'];
+      List<ItemScanneado> listaItem = [];
 
-    List<dynamic> data = map["items"];
-    List<ItemScanneado> listaItem = [];
+      for (var element in data) {
+        // ignore: non_constant_identifier_names
+        Map Item = element;
+        // ignore: non_constant_identifier_names
+        Map Data = Item['data'];
+        // ignore: non_constant_identifier_names
+        Map AssetDocumento = Item['document'];
 
-    data.forEach((element) {
-      Map Item = element;
-      Map Data = Item['data'];
-      Map Titulo = Data['titulo'];
-      Map Documento = Item['document'];
+        var novoTitulo = verificaInclementotitulo(Data, 0, "titulo");
+        var novadescricao = verificaInclementodescricao(Data, 0, "descricao");
+        String tumbnail = verificaTunbnail(listatunb);
+        // print("object ${tumbnail}");
 
-      // Map = Item['descricao'];
+        // ignore: non_constant_identifier_names
+        Map Titulo = Data[novoTitulo];
+        // ignore: non_constant_identifier_names
+        Map Descricao = Data[novadescricao];
 
-      // Map Metadados = Item['metadata'];
-      // Map Title = Metadados['title'];
-      // Map ScientificName = Metadados['nome-cientifico'];
+        ItemScanneado novoItem = ItemScanneado(
+          int.parse(Item['id'].toString()),
+          Titulo['value'],
+          Descricao['value'],
+          AssetDocumento['value'],
+          tumbnail,
+        );
 
-      ItemScanneado novoItem =
-          ItemScanneado(int.parse(Item['id'].toString()), Documento['value']
+        listaItem.add(novoItem);
+      }
+      return listaItem;
+    } catch (e) {
+      return null;
+    }
+  }
 
-              // int.parse(Item['id'].toString()),
-              // Item['title'],
-              // Item['description'],
-              // Item['document_mimetype'],
-              // Item['document_as_html'],
-              // ScientificName['value'],
-              );
-      listaItem.add(novoItem);
-    });
+  // ignore: non_constant_identifier_names
+  static verificaInclementotitulo(Map Data, int i, String titulo) {
+    if (Data[titulo] == null) {
+      titulo = "titulo" "-" "$i";
 
-    return listaItem;
+      i++;
+      return verificaInclementotitulo(Data, i, titulo);
+    }
+    return titulo;
+  }
+
+  // ignore: non_constant_identifier_names
+  static verificaInclementodescricao(Map Data, int i, String descricao) {
+    if (Data[descricao] == null) {
+      descricao = "descricao" "-" "$i";
+
+      i++;
+      return verificaInclementodescricao(Data, i, descricao);
+    }
+    return descricao;
+  }
+
+  static verificaTunbnail(List<dynamic> listatunb) {
+    String t = "a";
+    for (var element in listatunb) {
+      Map t2 = element;
+      List<dynamic> t3 = t2['thumbnail'];
+      t = t3[0];
+      // print(t3[0]);
+    }
+    return t;
   }
 }

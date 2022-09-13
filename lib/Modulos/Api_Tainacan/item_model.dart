@@ -3,33 +3,28 @@ class ItemScanneados {
 
   ItemScanneados(this.objetos);
 }
-class ItemScanneado{
+
+class ItemScanneado {
   final int id;
   final String titulo;
-  // final String descricao;
-  // final String tipoAsset;
-  // final String asset; //asset é referente a um link que pode ser uma imagem ou um video;
-  // final String scientificName;
+  final String descricao;
+  final String assetDocumento;
+  final String assetTabnail;
 
   ItemScanneado(
     this.id,
     this.titulo,
-    // this.descricao,
-    // this.tipoAsset,
-    // this.asset,
-    // this.scientificName
-   );
+    this.descricao,
+    this.assetDocumento,
+    this.assetTabnail,
+  );
 
-   factory ItemScanneado.fromJson(Map<String, dynamic> json) {
+  factory ItemScanneado.fromJson(Map<String, dynamic> json) {
     return ItemScanneado(
       json['id'],
       json['titulo'],
-      // json['descricao'],
-      // json['tipoAsset'],
-      // json['asset'],
-      // json['scientificName'],
-    );
+      json['descricao'],
+      json['assetDocumento'],
+      json['assetTabnail']);
   }
-  
-
 }
