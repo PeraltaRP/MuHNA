@@ -4,13 +4,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
-import 'package:muhna/Shared/Navigator/botao_visita.dart';
 import 'package:muhna/Shared/Themes/app_colors.dart';
 import 'package:muhna/Shared/Themes/app_images.dart';
 import 'package:muhna/Shared/Themes/app_text_styles.dart';
+import 'package:muhna/Shared/set_buttons/Navigator/botao_chekin.dart';
+import 'package:muhna/Shared/set_buttons/Navigator/botao_visita.dart';
 
 import '../../Shared/Alertas/AlertDialog.dart';
-import '../../Shared/Navigator/botao_chekin.dart';
 import '../Localizacao/local_Controller.dart';
 
 class HomePage extends StatefulWidget {

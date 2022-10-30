@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
+
 import 'package:muhna/Shared/Themes/app_colors.dart';
 import 'package:muhna/Shared/Themes/app_images.dart';
 import 'package:muhna/Shared/Themes/app_text_styles.dart';
 
-class BotaoVisita extends StatelessWidget {
+class BotaoChekin extends StatelessWidget {
   final VoidCallback onTap;
-  // final size = MediaQuery.of(context).size;
-  const BotaoVisita({Key? key, required this.onTap}) : super(key: key);
+  const BotaoChekin({Key? key, required this.onTap}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -30,7 +30,7 @@ class BotaoVisita extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      AppImages.logoMiniScan,
+                      AppImages.logoChekin,
                       width: 50,
                     ),
                     const SizedBox(
@@ -39,7 +39,7 @@ class BotaoVisita extends StatelessWidget {
                     Container(
                       height: 66,
                       width: 1,
-                      color: AppColors.primary,
+                      color: AppColors.grey,
                     )
                   ],
                 )),
@@ -49,7 +49,7 @@ class BotaoVisita extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Começar Visita",
+                    "Fazer Cheki in",
                     style: TextStyles.buttonHome,
                   ),
                 ],

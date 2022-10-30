@@ -18,7 +18,7 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Muhna',
       theme: ThemeData(primaryColor: AppColors.primary),
-      initialRoute: "/splash",
+      initialRoute: "/page",
       routes: {
         "/splash": (context) => const SplashPage(),
         "/home": (context) => const HomePage(),
@@ -28,6 +28,7 @@ class AppWidget extends StatelessWidget {
         "/radio": (context) =>
             radio_page(nome: "0", idade: "0", curso: "0", cidade: "0"),
         "/obrigado": (context) => const ObrigadoPage(),
+        "/page":(context) => const InforQrCodePage(),
       },
     );
   }

@@ -13,13 +13,13 @@ showConfirmDialog(
   Function onConfirmClicked,
 ) {
   // set up the buttons
-  Widget cancelButton = FlatButton(
+  Widget cancelButton = TextButton(
     child: Text(cancelBtnTxt),
     onPressed: () {
       Navigator.of(context).pop(); // dismiss dialog
     },
   );
-  Widget confirmButton = FlatButton(
+  Widget confirmButton = TextButton(
     child: Text(confirmBtnTxt),
     onPressed: () {
       onConfirmClicked.call();
@@ -49,7 +49,7 @@ showInfoDialog(bool status, BuildContext context, String title,
     String description, String confirmBtnTxt) {
   // set up the buttons
 
-  Widget confirmButton = FlatButton(
+  Widget confirmButton = TextButton(
     child: Text(
       confirmBtnTxt,
       style: TextStyles.alertbutton,
@@ -69,7 +69,7 @@ showInfoDialog(bool status, BuildContext context, String title,
   );
 
   // alert Form
-  Widget confirmButtonForm = FlatButton(
+  Widget confirmButtonForm = TextButton(
     child: Text(
       confirmBtnTxt,
       style: TextStyles.alertbutton,

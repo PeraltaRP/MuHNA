@@ -14,81 +14,60 @@ class ApiTainacan {
     }
   }
 
-  static Future<List<ItemScanneado>?> getItem(String codigoUrl) async {
+  static Future getItem(String codigoUrl) async {
     try {
-      Uri url = Uri.parse(codigoUrl);
+      List listaConteudo = [];
 
+      Uri url = Uri.parse(codigoUrl);
       http.Response resposta = await http.get(url);
 
-      Map<String, dynamic> map = json.decode(resposta.body);
-      List<dynamic> data = map["items"];
-      List<dynamic> listatunb = map['items'];
-      List<ItemScanneado> listaItem = [];
+      final decode = jsonDecode(resposta.body);
+      final idColetion = decode['collection_id'];
+      listaConteudo.add(decode['title']);
+      listaConteudo.add(decode['description']);
 
-      for (var element in data) {
-        // ignore: non_constant_identifier_names
-        Map Item = element;
-        // ignore: non_constant_identifier_names
-        Map Data = Item['data'];
-        // ignore: non_constant_identifier_names
-        Map AssetDocumento = Item['document'];
+      int idItem = decode['id'];
 
-        var novoTitulo = verificaInclementotitulo(Data, 0, "titulo");
-        var novadescricao = verificaInclementodescricao(Data, 0, "descricao");
-        String tumbnail = verificaTunbnail(listatunb);
-        // print("object ${tumbnail}");
+      final thumbnails =
+          'http://testesmuhna.x10.mx/wp-json/tainacan/v2/collection/$idColetion/items/?&exposer=json-flat&id=$idItem';
 
-        // ignore: non_constant_identifier_names
-        Map Titulo = Data[novoTitulo];
-        // ignore: non_constant_identifier_names
-        Map Descricao = Data[novadescricao];
+      Uri url_thumb = Uri.parse(thumbnails);
+      http.Response resposta_thumb = await http.get(url_thumb);
 
-        ItemScanneado novoItem = ItemScanneado(
-          int.parse(Item['id'].toString()),
-          Titulo['value'],
-          Descricao['value'],
-          AssetDocumento['value'],
-          tumbnail,
-        );
+      final decode_thumb = jsonDecode(resposta.body);
 
-        listaItem.add(novoItem);
-      }
-      return listaItem;
+      print(decode_thumb['items']['0']['id']);
+
+      // decode['metadata']['reino']['value'];
+      // decode['metadata']['filo']['value'];
+      // decode['metadata']['classe']['value'];
+      // decode['metadata']['superordem']['value'];
+      // decode['metadata']['subclasse']['value'];
+      // decode['metadata']['orde']['value'];
+
+      // decode['metadata']['reino-2']['value'];
+      // decode['metadata']['filo-2']['value'];
+      // decode['metadata']['inflaclasse']['value'];
+      // decode['metadata']['classe-2']['value'];
+      // decode['metadata']['superordem-2']['value'];
+      // decode['metadata']['ornde']['value'];
+      // decode['metadata']['familia']['value'];
+      // decode['metadata']['genero']['value'];
+      // decode['metadata']['especie']['value'];
+      // decode['metadata']['ornde']['value'];
+
+      // String codigoImagens = '$codigoUrl/attachments';
+      // print(codigoImagens);
+      // Uri urlImagen = Uri.parse(codigoImagens);
+      // final respostaImagens = await http.get(urlImagen);
+
+      // final data = json.decode(respostaImagens.body);
+
+      // for (int i = 0; i < data.length; i++) {
+      //   listaConteudo.add(data[i]['url']);
+      // }
     } catch (e) {
       return null;
     }
-  }
-
-  // ignore: non_constant_identifier_names
-  static verificaInclementotitulo(Map Data, int i, String titulo) {
-    if (Data[titulo] == null) {
-      titulo = "titulo" "-" "$i";
-
-      i++;
-      return verificaInclementotitulo(Data, i, titulo);
-    }
-    return titulo;
-  }
-
-  // ignore: non_constant_identifier_names
-  static verificaInclementodescricao(Map Data, int i, String descricao) {
-    if (Data[descricao] == null) {
-      descricao = "descricao" "-" "$i";
-
-      i++;
-      return verificaInclementodescricao(Data, i, descricao);
-    }
-    return descricao;
-  }
-
-  static verificaTunbnail(List<dynamic> listatunb) {
-    String t = "a";
-    for (var element in listatunb) {
-      Map t2 = element;
-      List<dynamic> t3 = t2['thumbnail'];
-      t = t3[0];
-      // print(t3[0]);
-    }
-    return t;
   }
 }

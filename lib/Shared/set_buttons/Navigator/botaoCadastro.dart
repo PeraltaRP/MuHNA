@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:muhna/Shared/Themes/app_colors.dart';
 import 'package:muhna/Shared/Themes/app_text_styles.dart';
 
+
 class BotaoCadastrar extends StatelessWidget {
   final VoidCallback onTap;
   const BotaoCadastrar({Key? key, required this.onTap}) : super(key: key);

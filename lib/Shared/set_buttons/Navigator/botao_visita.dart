@@ -3,9 +3,11 @@ import 'package:muhna/Shared/Themes/app_colors.dart';
 import 'package:muhna/Shared/Themes/app_images.dart';
 import 'package:muhna/Shared/Themes/app_text_styles.dart';
 
-class BotaoChekin extends StatelessWidget {
+
+class BotaoVisita extends StatelessWidget {
   final VoidCallback onTap;
-  const BotaoChekin({Key? key, required this.onTap}) : super(key: key);
+  // final size = MediaQuery.of(context).size;
+  const BotaoVisita({Key? key, required this.onTap}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -29,7 +31,7 @@ class BotaoChekin extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Image.asset(
-                      AppImages.logoChekin,
+                      AppImages.logoMiniScan,
                       width: 50,
                     ),
                     const SizedBox(
@@ -38,7 +40,7 @@ class BotaoChekin extends StatelessWidget {
                     Container(
                       height: 66,
                       width: 1,
-                      color: AppColors.grey,
+                      color: AppColors.primary,
                     )
                   ],
                 )),
@@ -48,7 +50,7 @@ class BotaoChekin extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Fazer Cheki in",
+                    "Começar Visita",
                     style: TextStyles.buttonHome,
                   ),
                 ],

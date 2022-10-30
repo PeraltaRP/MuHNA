@@ -1,7 +1,7 @@
 import 'package:gsheets/gsheets.dart';
 import 'package:muhna/Modulos/form_from_gsheets/form_testes/visitante_model.dart';
+import 'package:muhna/Modulos/senhas/chaves_ocultas.dart';
 
-import 'package:muhna/Variaveis_Privadas/chaves_ocultas.dart';
 
 class VisitanteSheetsApi {
   static getCredenciais() {

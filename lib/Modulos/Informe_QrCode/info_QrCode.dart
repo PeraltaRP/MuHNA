@@ -19,32 +19,42 @@ class InforQrCodePage extends StatefulWidget {
 class _InforQrCodePageState extends State<InforQrCodePage> {
   var ticket = '';
 
-  readQRCode() async {
-    String code = await FlutterBarcodeScanner.scanBarcode(
-      "#FFFFFF",
-      "Cancelar",
-      false,
-      ScanMode.QR,
-    );
-    setState(() => ticket = code != '-1' ? code : 'Não validado');
-    // ignore: unnecessary_null_comparison
-    if (ticket != null) {
-      String valido = ApiTainacan.validaLink(ticket);
-      if (valido == "link invalido") {
-        // ignore: use_build_context_synchronously
-        showInfoDialog(
-          false,
-          context,
-          "Link Invalido",
-          "Por Favor! Fazer leitura novamente",
-          "ok",
-        );
-      } else {
+  // readQRCode() async {
+  //   String code = await FlutterBarcodeScanner.scanBarcode(
+  //     "#FFFFFF",
+  //     "Cancelar",
+  //     false,
+  //     ScanMode.QR,
+  //   );
+  //   setState(() => ticket = code != '-1' ? code : 'Não validado');
+  //   // ignore: unnecessary_null_comparison
+  //   if (ticket != null) {
+  //     String valido = ApiTainacan.validaLink(ticket);
+  //     if (valido == "link invalido") {
+  //       // ignore: use_build_context_synchronously
+  //       showInfoDialog(
+  //         false,
+  //         context,
+  //         "Link Invalido",
+  //         "Por Favor! Fazer leitura novamente",
+  //         "ok",
+  //       );
+  //     } else {
+  //       // ignore: use_build_context_synchronously
+  //       Navigator.of(context).push(MaterialPageRoute(
+  //           builder: (context) => ListarItemTainacan2(codigoUrl: valido)));
+  //     }
+  //   }
+  // }
+
+   readQRCode() async {
+   
+      
         // ignore: use_build_context_synchronously
         Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => ListarItemTainacan2(codigoUrl: valido)));
-      }
-    }
+            builder: (context) => ListarItemTainacan2(codigoUrl: "http://testesmuhna.x10.mx/wp-json/tainacan/v2/items/205")));
+      
+    
   }
 
   @override

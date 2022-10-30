@@ -1,30 +1,12 @@
-class ItemScanneados {
-  final List objetos;
+class Item {
+  Item({required this.titulo, required this.descricao});
+  final String? titulo;
+  final String? descricao;
 
-  ItemScanneados(this.objetos);
-}
+  factory Item.fromJson(Map<String, dynamic> data) {
+    final title = data['title'] as String;
+    final description = data['description'] as String;
 
-class ItemScanneado {
-  final int id;
-  final String titulo;
-  final String descricao;
-  final String assetDocumento;
-  final String assetTabnail;
-
-  ItemScanneado(
-    this.id,
-    this.titulo,
-    this.descricao,
-    this.assetDocumento,
-    this.assetTabnail,
-  );
-
-  factory ItemScanneado.fromJson(Map<String, dynamic> json) {
-    return ItemScanneado(
-      json['id'],
-      json['titulo'],
-      json['descricao'],
-      json['assetDocumento'],
-      json['assetTabnail']);
+    return Item(titulo: title, descricao: description);
   }
 }
