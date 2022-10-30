@@ -1,4 +1,4 @@
-// ignore: file_names
+
 import 'package:flutter/material.dart';
 import 'package:muhna/Modulos/Home/home_page.dart';
 import 'package:muhna/Modulos/Informe_QrCode/info_QrCode.dart';
@@ -8,7 +8,7 @@ import 'package:muhna/Modulos/form_from_gsheets/form_testes/obrigado.dart';
 import 'package:muhna/Modulos/form_from_gsheets/form_testes/radio.dart';
 import 'package:muhna/Shared/Themes/app_colors.dart';
 
-import 'Modulos/form_from_gsheets/form_gsheets/form_gsheets.dart';
+
 
 class AppWidget extends StatelessWidget {
   const AppWidget({Key? key}) : super(key: key);
