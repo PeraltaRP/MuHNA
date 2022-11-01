@@ -7,8 +7,7 @@ import 'package:muhna/Modulos/Api_Tainacan/item_model.dart';
 class ApiTainacan {
   static String validaLink(String codigoUrl) {
     if (codigoUrl.contains("tainacan")) {
-      List<String> linkParse = codigoUrl.split("&_");
-      return linkParse[0];
+      return codigoUrl;
     } else {
       return "link invalido";
     }
