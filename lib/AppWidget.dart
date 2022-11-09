@@ -18,7 +18,7 @@ class AppWidget extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Muhna',
       theme: ThemeData(primaryColor: AppColors.primary),
-      initialRoute: "/page",
+      initialRoute: "/splash",
       routes: {
         "/splash": (context) => const SplashPage(),
         "/home": (context) => const HomePage(),

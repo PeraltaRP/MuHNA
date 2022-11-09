@@ -27,37 +27,37 @@ class ApiTainacan {
       listaConteudo.add(decode['description']);
 
       
-      if (decode['metadata']['reino']['value'] != null) {
-        listaConteudo.add(decode['metadata']['reino']['value']);
-      }
+      // if (decode['metadata']['reino']['value'] != null) {
+      //   listaConteudo.add(decode['metadata']['reino']['value']);
+      // }
       // if (decode['metadata']['reino-2']['value'] != null) {
       //   listaConteudo.add(decode['metadata']['reino-2']['value']);
       // }
       
-      if (decode['metadata']['filo']['value'] != null) {
-        listaConteudo.add(decode['metadata']['filo']['value']);
-      }
+      // if (decode['metadata']['filo']['value'] != null) {
+      //   listaConteudo.add(decode['metadata']['filo']['value']);
+      // }
       // if (decode['metadata']['filo-2']['value'] != null) {
       //   listaConteudo.add(decode['metadata']['filo-2']['value']);
       // }
-      if (decode['metadata']['classe']['value'] != null) {
-        listaConteudo.add(decode['metadata']['classe']['value']);
-      }
+      // if (decode['metadata']['classe']['value'] != null) {
+      //   listaConteudo.add(decode['metadata']['classe']['value']);
+      // }
       // if (decode['metadata']['classe-2']['value'] != null) {
       //   listaConteudo.add(decode['metadata']['classe-2']['value']);
       // }
-      if (decode['metadata']['superordem']['value'] != null) {
-        listaConteudo.add(decode['metadata']['superordem']['value']);
-      }
+      // if (decode['metadata']['superordem']['value'] != null) {
+      //   listaConteudo.add(decode['metadata']['superordem']['value']);
+      // }
       // if (decode['metadata']['superordem-2']['value'] != null) {
       //   listaConteudo.add(decode['metadata']['superordem-2']['value']);
       // }
-      if (decode['metadata']['subclasse']['value'] != null) {
-        listaConteudo.add(decode['metadata']['subclasse']['value']);
-      }
-      if (decode['metadata']['orde']['value'] != null) {
-        listaConteudo.add(decode['metadata']['orde']['value']);
-      }
+      // if (decode['metadata']['subclasse']['value'] != null) {
+      //   listaConteudo.add(decode['metadata']['subclasse']['value']);
+      // }
+      // if (decode['metadata']['orde']['value'] != null) {
+      //   listaConteudo.add(decode['metadata']['orde']['value']);
+      // }
       // if (decode['metadata']['inflaclasse']['value'] != null) {
       //   listaConteudo.add(decode['metadata']['inflaclasse']['value']);
       // }
@@ -105,10 +105,11 @@ class ApiTainacan {
       }
       // fim da thumbanil
 
+      
+      for (int i = 0; i < listaConteudo.length; i++) {
+        print(listaConteudo[i]);
+      }
       return listaConteudo;
-      // for (int i = 0; i < listaConteudo.length; i++) {
-      //   print(listaConteudo[i]);
-      // }
     } catch (e) {
       return null;
     }

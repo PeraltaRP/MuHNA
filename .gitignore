@@ -31,7 +31,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
-/lib/Variaveis_Privadas/chaves_ocultas.dart
+/lib/senhas
 
 # Web related
 lib/generated_plugin_registrant.dart

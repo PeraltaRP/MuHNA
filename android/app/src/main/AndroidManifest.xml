@@ -2,7 +2,7 @@
     package="com.example.muhna">
    <application
         android:usesCleartextTraffic="true"
-        android:label="peralta"
+        android:label="MuHNA"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
